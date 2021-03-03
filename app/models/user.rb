@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
 #validations
   validates :name, presence: true
-  validates :email, presence: true
+  
   validates :address, presence: true
 
   validates :terms_of_service, acceptance: {message:'Must be abided strictly',accept:['true','yes']}
@@ -14,4 +14,7 @@ class User < ApplicationRecord
 
   #association validaiton
   validates_associated :orders
+  
+  validates :email, presence: true, confirmation: {case_sensitive: false}
+  validates :email_confirmation, presence: true
 end
