@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_02_112036) do
+ActiveRecord::Schema.define(version: 2021_03_03_130539) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,11 +37,32 @@ ActiveRecord::Schema.define(version: 2021_03_02_112036) do
     t.integer "account_number"
   end
 
-  create_table "carts", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "product_id"
+  create_table "authors", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "books", force: :cascade do |t|
+    t.string "name"
+    t.integer "author_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "carts", force: :cascade do |t|
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "carts_products", force: :cascade do |t|
+    t.bigint "cart_id"
+    t.bigint "product_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["cart_id"], name: "index_carts_products_on_cart_id"
+    t.index ["product_id"], name: "index_carts_products_on_product_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -58,6 +79,15 @@ ActiveRecord::Schema.define(version: 2021_03_02_112036) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "people", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.string "email"
+    t.string "terms_of_service"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.integer "category_id"
@@ -65,7 +95,6 @@ ActiveRecord::Schema.define(version: 2021_03_02_112036) do
     t.text "specs"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "cart_id"
   end
 
   create_table "users", force: :cascade do |t|
