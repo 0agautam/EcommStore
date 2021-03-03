@@ -5,7 +5,7 @@ class User < ApplicationRecord
   has_many :orders
 
 #validations
-  validates :name, presence: true
+  validates :name, presence: true, format: {with: /\A[A-Za-z]+\z/,message:"should contain alphabets only"}
   
   validates :address, presence: true
 
@@ -17,4 +17,7 @@ class User < ApplicationRecord
   
   validates :email, presence: true, confirmation: {case_sensitive: false}
   validates :email_confirmation, presence: true
+
+  validates :pincode, exclusion: {in: %w(100000 200000 300000),message:"%{value} is excluded"}, length: {is: 6},format: {with: /\A[0-9]+\z/, message:"only numbers allowed"}
 end
+
