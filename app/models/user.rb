@@ -15,9 +15,11 @@ class User < ApplicationRecord
   #association validaiton
   validates_associated :orders
   
-  validates :email, presence: true, confirmation: {case_sensitive: false}
+  validates :email, presence: true, confirmation: {case_sensitive: false}, uniqueness: {case_sensitive: false}
   validates :email_confirmation, presence: true
 
   validates :pincode, exclusion: {in: %w(100000 200000 300000),message:"%{value} is excluded"}, length: {is: 6},format: {with: /\A[0-9]+\z/, message:"only numbers allowed"}
+  
+  validates :account, presence:true
 end
 
