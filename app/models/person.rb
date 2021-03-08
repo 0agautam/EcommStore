@@ -8,7 +8,7 @@ class Person < ApplicationRecord
   before_validation :ensure_you_have_a_value
   
   before_validation :normalize_name, on: :create
-  after_validation :set_address, on: [:create, :update]
+  #after_validation :set_address, on: [:create, :update]
 
 
   private
@@ -17,7 +17,7 @@ class Person < ApplicationRecord
       myid +=1
       if name.nil?
         myid = myid.to_s  
-        print "Error"
+        print "NameError"
         self.name = ("person").concat(myid)
       end
         
@@ -32,9 +32,9 @@ class Person < ApplicationRecord
       self.name.capitalize!
     end
 
-    def set_address 
-      self.address = LocationService.query(self)
-    end
+    # def set_address 
+    #   self.address = LocationService.query(self)
+    # end
     # before_create do
     #   self.name.capitalize!
     #   self.address.capitalize!
@@ -46,6 +46,10 @@ class Person < ApplicationRecord
 
     after_find do
       puts "You have found an object"
+    end
+
+    after_touch do 
+      puts "Ouch!!! You touched an object"
     end
 end
 

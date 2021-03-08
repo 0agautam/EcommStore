@@ -20,6 +20,8 @@ class User < ApplicationRecord
   has_one :account_history, through: :account
   has_many :orders
 
+  after_touch :log_when_order_is_touched
+
 #validations
   #validates :name, presence: true, format: {with: /\A[A-Za-z]+\z/,message:"should contain alphabets only"}
   
@@ -38,6 +40,12 @@ class User < ApplicationRecord
   
   validates_with MyValidator
   validates_with EmailValidator
+
+  private
+
+    def log_when_order_is_touched
+      puts "An order is touched for user #{self.orders.ids}"
+    end
 
 end
 
