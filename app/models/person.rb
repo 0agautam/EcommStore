@@ -8,6 +8,7 @@ class Person < ApplicationRecord
   before_validation :ensure_you_have_a_value
   
   before_validation :normalize_name, on: :create
+  before_update :ensure_name_is_valid_on_update
   #after_validation :set_address, on: [:create, :update]
 
 
@@ -30,6 +31,12 @@ class Person < ApplicationRecord
     
     def normalize_name
       self.name.capitalize!
+    end
+
+    def ensure_name_is_valid_on_update
+      if name.nil?
+        raise "Name can't be nil"
+      end
     end
 
     # def set_address 
