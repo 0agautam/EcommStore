@@ -38,5 +38,6 @@ class User < ApplicationRecord
   
   validates_with MyValidator
   validates_with EmailValidator
+
 end
 
