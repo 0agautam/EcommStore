@@ -18,7 +18,7 @@ class User < ApplicationRecord
   has_one :cart
   has_one :account
   has_one :account_history, through: :account
-  has_many :orders
+  has_many :orders, dependent: :destroy
 
   after_touch :log_when_order_is_touched
 
@@ -44,7 +44,7 @@ class User < ApplicationRecord
   private
 
     def log_when_order_is_touched
-      puts "An order is touched for user #{self.orders.ids}"
+      puts "An order/user is touched for user #{self.orders.ids}"
     end
 
 end
