@@ -20,6 +20,8 @@ class User < ApplicationRecord
   has_one :account_history, through: :account
   has_many :orders, dependent: :destroy
 
+  has_many :pictures, as: :imageable
+  
   after_touch :log_when_order_is_touched
 
 #validations
