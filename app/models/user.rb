@@ -24,6 +24,10 @@ class User < ApplicationRecord
   
   after_touch :log_when_order_is_touched
 
+#self join
+has_many :costumers, class_name: "User", foreign_key:"supplier_id"
+belongs_to :supplier, class_name: "User", optional: true
+
 #validations
   #validates :name, presence: true, format: {with: /\A[A-Za-z]+\z/,message:"should contain alphabets only"}
   
